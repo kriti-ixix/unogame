@@ -2,6 +2,7 @@
 Making an UNO game in Python
 
 THE INSTRUCTIONS:
+
 Everyone has their favorite card game. What's yours? For this assignment, choose a card game (other than Blackjack), and turn it into a Python program. It doesn't matter if it's a 1-player game, or a 2 player game, or more! That's totally up to you. A few requirements:
 
 1. It's got to be a card game (no board games, etc)
