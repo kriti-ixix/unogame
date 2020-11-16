@@ -145,6 +145,10 @@ while playing:
         cardChosen = input("Enter the number of the card you wish to play: ")
         if cardChosen == "--help" or cardChosen == "--resume":
             checkInput(cardChosen)
+            showHand(playerNames[playerTurn], players[playerTurn])
+            print("Cards in discard pile: {}".format(discards[-1]))
+            if canPlay(currentColour, cardVal, players[playerTurn]):
+                cardChosen = int(input("Enter the number of the card you wish to play: "))
         else:
             cardChosen = int(cardChosen)
         
@@ -152,8 +156,13 @@ while playing:
             cardChosen = input("Invalid card. Enter the number of the card you wish to play: ")
             if cardChosen == "--help" or cardChosen == "--resume":
                 checkInput(cardChosen)
+                showHand(playerNames[playerTurn], players[playerTurn])
+                print("Cards in discard pile: {}".format(discards[-1]))
+                if canPlay(currentColour, cardVal, players[playerTurn]):
+                    cardChosen = int(input("Enter the number of the card you wish to play: "))
             else:
                 cardChosen = int(cardChosen)
+
         print("You played {}".format(players[playerTurn][cardChosen-1])) 
         discards.append(players[playerTurn].pop(cardChosen-1))
         
