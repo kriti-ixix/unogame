@@ -84,6 +84,7 @@ def showRules():
     print("")
     print("The game is for 2-4 players. Every player starts with seven cards, and they are dealt face down. The rest of the cards are placed in a Draw Pile face down. Next to the pile a space should be designated for a Discard Pile. The top card should be placed in the Discard Pile, and the game begins!")
     print("You have to match either by the number, color, or the symbol/Action. For instance, if the Discard Pile has a red card that is an 8 you have to place either a red card or a card with an 8 on it. You can also play a Wild card (which can alter current color in play).")
+    print("Enter the number of the card you wish to play.")
     print("")
     input("Enter --resume to resume the game: ")
 
@@ -141,14 +142,14 @@ while playing:
     print("Cards in discard pile: {}".format(discards[-1]))
     
     if canPlay(currentColour, cardVal, players[playerTurn]):
-        cardChosen = input("Which card do you want to play? ")
+        cardChosen = input("Enter the number of the card you wish to play: ")
         if cardChosen == "--help" or cardChosen == "--resume":
             checkInput(cardChosen)
         else:
             cardChosen = int(cardChosen)
         
         while not canPlay(currentColour, cardVal, [players[playerTurn][cardChosen-1]]):
-            cardChosen = input("Invalid card. Which card do you want to play? ")
+            cardChosen = input("Invalid card. Enter the number of the card you wish to play: ")
             if cardChosen == "--help" or cardChosen == "--resume":
                 checkInput(cardChosen)
             else:
@@ -171,13 +172,13 @@ while playing:
             if currentColour == "Wild":
                 for x in range(len(colours)):
                     print("{}) {}".format(x+1, colours[x]))
-                newColour = input("What colour would you like to choose? ")
+                newColour = input("Enter the number of the colour you wish to choose: ")
                 if newColour == "--help" or newColour == "--resume":
                     checkInput(newColour)
                 else:
                     newColour = int(newColour)
                 while newColour < 1 or newColour > 4:
-                    newColour = input("Invalid. What colour would you like to choose? ")
+                    newColour = input("Invalid. Enter the number of the colour you wish to choose: ")
                     if newColour == "--help" or newColour == "--resume":
                         checkInput(newColour)
                     else:
