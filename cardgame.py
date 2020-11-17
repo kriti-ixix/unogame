@@ -143,25 +143,21 @@ while playing:
     
     if canPlay(currentColour, cardVal, players[playerTurn]):
         cardChosen = input("Enter the number of the card you wish to play: ")
-        if cardChosen == "--help" or cardChosen == "--resume":
+        while (cardChosen=="--help" or cardChosen=="--resume"):
             checkInput(cardChosen)
             showHand(playerNames[playerTurn], players[playerTurn])
             print("Cards in discard pile: {}".format(discards[-1]))
-            if canPlay(currentColour, cardVal, players[playerTurn]):
-                cardChosen = int(input("Enter the number of the card you wish to play: "))
-        else:
-            cardChosen = int(cardChosen)
+            cardChosen = input("Enter the number of the card you wish to play: ")
+        cardChosen = int(cardChosen)    
         
         while not canPlay(currentColour, cardVal, [players[playerTurn][cardChosen-1]]):
             cardChosen = input("Invalid card. Enter the number of the card you wish to play: ")
-            if cardChosen == "--help" or cardChosen == "--resume":
+            while (cardChosen=="--help" or cardChosen=="--resume"):
                 checkInput(cardChosen)
                 showHand(playerNames[playerTurn], players[playerTurn])
                 print("Cards in discard pile: {}".format(discards[-1]))
-                if canPlay(currentColour, cardVal, players[playerTurn]):
-                    cardChosen = int(input("Enter the number of the card you wish to play: "))
-            else:
-                cardChosen = int(cardChosen)
+                cardChosen = input("Invalid card. Enter the number of the card you wish to play: ")
+            cardChosen = int(cardChosen)    
 
         print("You played {}".format(players[playerTurn][cardChosen-1])) 
         discards.append(players[playerTurn].pop(cardChosen-1))
@@ -182,16 +178,16 @@ while playing:
                 for x in range(len(colours)):
                     print("{}) {}".format(x+1, colours[x]))
                 newColour = input("Enter the number of the colour you wish to choose: ")
-                if newColour == "--help" or newColour == "--resume":
+                while (newColour == "--help" or newColour == "--resume"):
                     checkInput(newColour)
-                else:
-                    newColour = int(newColour)
-                while newColour < 1 or newColour > 4:
+                    newColour = input("Enter the number of the colour you wish to choose: ")
+                
+                while newColour<1 or newColour<4:
                     newColour = input("Invalid. Enter the number of the colour you wish to choose: ")
-                    if newColour == "--help" or newColour == "--resume":
+                    while (newColour == "--help" or newColour == "--resume"):
                         checkInput(newColour)
-                    else:
-                        newColour = int(newColour)
+                        newColour = input("Enter the number of the colour you wish to choose: ")
+                newColour = int(newColour)
                 currentColour = colours[newColour-1]
             
             if cardVal == "Reverse":
