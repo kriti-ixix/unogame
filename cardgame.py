@@ -40,7 +40,6 @@ Draws a specified number of cards off the top of the deck
 Parameters: numCards -> integer
 Return: cardsDrawn -> list
 """
-
 def drawCards(numCards):
     cardsDrawn = []
     for x in range (numCards):
@@ -86,7 +85,10 @@ def showRules():
     print("You have to match either by the number, color, or the symbol/Action. For instance, if the Discard Pile has a red card that is an 8 you have to place either a red card or a card with an 8 on it. You can also play a Wild card (which can alter current color in play).")
     print("Enter the number of the card you wish to play.")
     print("")
-    input("Enter --resume to resume the game: ")
+    temp = input("Enter --resume to resume the game: ")
+    while temp != "--resume":
+        temp = input("Invalid command. Type --resume to resume the game: ")
+        checkInput(temp)
 
 def checkInput(userInput):
     if userInput == "--help":
@@ -108,19 +110,22 @@ numPlayers = None
 print("Enter --help to display the rules of the game\n")
 
 numPlayers = input("How many players? ")
-if numPlayers == "--help" or numPlayers == "--resume":
+while numPlayers == "--help" or numPlayers == "--resume":
     checkInput(numPlayers)
-else:
-    numPlayers = int(numPlayers)
-    while len(playerNames) < numPlayers:
-        tempName = input("Enter player's name: ")
-        if tempName == "--help" or tempName == "--resume":
-            checkInput(tempName)
-        else:
-            playerNames.append(tempName)
-            players.append(drawCards(5))
+    numPlayers = input("How many players? ")
 
-print("The cards are:")
+numPlayers = int(numPlayers)
+
+while len(playerNames) < numPlayers:
+    tempName = input("Enter player's name: ")
+    while tempName == "--help" or tempName == "--resume":
+        checkInput(tempName)
+        tempName = input("Enter player's name: ")
+   
+    playerNames.append(tempName)
+    players.append(drawCards(5))
+
+print("\nThe cards are:")
 for (x,y) in zip(playerNames, players):
     print("Player {} has {}".format(x, y))
 print("")
@@ -150,6 +155,9 @@ while playing:
             cardChosen = input("Enter the number of the card you wish to play: ")
         cardChosen = int(cardChosen)    
         
+        while cardChosen>len(players[playerTurn]):
+            cardChosen = int(input("Out of range. Enter the number of the card you wish to play: "))
+
         while not canPlay(currentColour, cardVal, [players[playerTurn][cardChosen-1]]):
             cardChosen = input("Invalid card. Enter the number of the card you wish to play: ")
             while (cardChosen=="--help" or cardChosen=="--resume"):
@@ -165,7 +173,7 @@ while playing:
         #Check if player won
         if len(players[playerTurn]) == 0:
             playing = False
-            winner = playerNames.index(playerTurn+1)
+            winner = playerNames[playerTurn]
         else:   
             #Check for special cards
             splitCard = discards[-1].split(" ", 1)
@@ -175,6 +183,7 @@ while playing:
             else:
                 cardVal = splitCard[1]
             if currentColour == "Wild":
+                print("")
                 for x in range(len(colours)):
                     print("{}) {}".format(x+1, colours[x]))
                 newColour = input("Enter the number of the colour you wish to choose: ")
@@ -182,12 +191,14 @@ while playing:
                     checkInput(newColour)
                     newColour = input("Enter the number of the colour you wish to choose: ")
                 
-                while newColour<1 or newColour<4:
+                newColour = int(newColour)
+                while newColour<1 or newColour>4:
                     newColour = input("Invalid. Enter the number of the colour you wish to choose: ")
-                    while (newColour == "--help" or newColour == "--resume"):
+                    while (newColour == "--help " or newColour == "--resume"):
                         checkInput(newColour)
                         newColour = input("Enter the number of the colour you wish to choose: ")
-                newColour = int(newColour)
+
+                newColour = int(newColour)        
                 currentColour = colours[newColour-1]
             
             if cardVal == "Reverse":
