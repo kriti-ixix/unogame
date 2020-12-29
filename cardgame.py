@@ -28,12 +28,13 @@ def buildDeck():
 To shuffle the deck of cards
 Parameters: deck -> list
 Return values: deck -> list
-"""
+
 def shuffleDeck(deck):
     for cardPos in range(len(deck)):
         randPos = random.randint(0, 107)
         deck[cardPos], deck[randPos] = deck[randPos], deck[cardPos]
     return deck
+"""
 
 """
 Draws a specified number of cards off the top of the deck
@@ -100,7 +101,7 @@ def checkInput(userInput):
     
 
 unoDeck = buildDeck()
-unoDeck = shuffleDeck(unoDeck)
+unoDeck = random.shuffle(unoDeck)
 discards = []
 
 players = [] #List to store player cards
