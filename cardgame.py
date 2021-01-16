@@ -1,4 +1,5 @@
 import random
+from os import system, name 
 
 """
 To generate a deck of 108 UNO cards
@@ -53,7 +54,7 @@ Parameters: player -> integer, playerHand -> list
 Return: none
 """
 def showHand(player, playerHand):
-    print("{}'s turn".format(player))
+    print("It's {}'s turn".format(player))
     print("Your Hand")
     print("-----------------------------")
     y = 1
@@ -81,6 +82,13 @@ Parameters: none
 Return: none
 """
 def showRules():
+    #Clearing screen in Windows
+    if name == 'nt': 
+        _ = system('cls') 
+    #Clearing screen in Mac and Linux(here, os.name is 'posix') 
+    else: 
+        _ = system('clear') 
+
     print("")
     print("The game is for 2-4 players. Every player starts with seven cards, and they are dealt face down. The rest of the cards are placed in a Draw Pile face down. Next to the pile a space should be designated for a Discard Pile. The top card should be placed in the Discard Pile, and the game begins!")
     print("You have to match either by the number, color, or the symbol/Action. For instance, if the Discard Pile has a red card that is an 8 you have to place either a red card or a card with an 8 on it. You can also play a Wild card (which can alter current color in play).")
